@@ -93,6 +93,8 @@ UNIQUE_TOPIC = os.environ.get("WATCH_UNIQUE_TOPIC", "1").strip() != "0"
 # 用 hook 进程自己的工作目录兜底)。多窗口并行时靠它分清是哪个窗口/项目在求批准;
 # 单窗口嫌多一行可设 WATCH_SHOW_CWD=0 关掉。
 SHOW_CWD = os.environ.get("WATCH_SHOW_CWD", "1").strip() != "0"
+# 不想在通知正文里显示「git push --force / rm -rf」这类动作摘要时可设 0。
+SHOW_DESC = os.environ.get("WATCH_SHOW_DESC", "1").strip() != "0"
 
 # 代理:优先 HTTPS_PROXY,其次大小写/HTTP 变体,形如 http://127.0.0.1:7890
 PROXY = (
@@ -874,7 +876,7 @@ def _send_ntfy(opener, title, text, buttons, retries, reply_topic):
     payload = {
         "topic": NTFY_NOTIFY_TOPIC,
         "title": title,
-        "message": text or "(无详情)",
+        "message": text if text is not None else "",
         "priority": 5 if buttons else 4,
     }
     if buttons:
@@ -1196,7 +1198,7 @@ def main():
     deadline = time.monotonic() + APPROVE_WAIT
 
     title = _PRESET["title"]
-    text = desc if desc else "(无详情)"
+    text = desc if (SHOW_DESC and desc) else ""
     try:
         send_notification(opener, title, text, reply_topic=reply_topic)
     except urllib.error.HTTPError as e:

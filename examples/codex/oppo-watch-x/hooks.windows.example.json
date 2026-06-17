@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Users\\<YOU>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\<YOU>\\watch-hooks\\watch_approve.py\" --agent codex",
+            "statusMessage": "Waiting for phone approval",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:\\Users\\<YOU>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\" \"C:\\Users\\<YOU>\\watch-hooks\\watch_done.py\" --agent codex",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

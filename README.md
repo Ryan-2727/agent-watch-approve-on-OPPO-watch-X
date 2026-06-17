@@ -318,6 +318,7 @@ Claude 有时不是要批准,而是抛一道**多选决策题**(`AskUserQuestion
 | `WATCH_DESC_MAX` | `80` | 通知正文最大字符数(手表屏幕小) |
 | `WATCH_UNIQUE_TOPIC` | `1` | 每次审批用独立回执 topic(基础 topic+随机后缀),多窗口并行不串台;`0`=共享 |
 | `WATCH_SHOW_CWD` | `1` | 通知正文末尾带「📁 项目文件夹名」,多窗口分清来源;`0`=关 |
+| `WATCH_SHOW_DESC` | `1` | 通知正文显示动作摘要(如 `git push --force`);`0`=只显示标题 |
 | `WATCH_ASK_QUESTIONS` | `1` | 终端多选决策题(AskUserQuestion)推到手表直接选;`0`=只在终端 |
 | `WATCH_QUESTION_TITLE` | `🤔 Claude 在问你` | 选择题通知的标题 |
 | `WATCH_QUESTION_SOUND` | `question` | 选择题通知的声音(和审批音区分开) |
@@ -389,6 +390,8 @@ hook → publish 到 ntfy 通知 topic(带按钮)→ 手机弹通知 → 点按�
 | **鸿蒙 ≤4.x(兼容安卓)** | ✅ 装 F-Droid 版 ntfy 即可,同上 |
 | **华为手表**(GT/Watch 系列) | ⚠️ 只镜像通知文本,按钮过不去——手表看见、手机上批 |
 | **鸿蒙 NEXT(纯血,不能跑安卓 app)** | ❌ 无 ntfy 客户端。兜底:用 Server酱 等把审批推成**微信消息**,正文放两个链接(指向 ntfy 的 `/publish?message=allow|deny` GET URL),点链接即完成审批。欢迎社区 PR 原生 app |
+
+如果你想直接复用一套已经在 **Codex Desktop + ntfy + OPPO Watch X** 上跑通、并且把通知精简成“只显示 `Codex` 标题 + 允许/拒绝按钮”的配置，见 [INSTALL.OPPO-WATCH-X.md](./INSTALL.OPPO-WATCH-X.md) 和 `examples/codex/oppo-watch-x/`。
 
 ### ntfy 载体的细节差异
 
